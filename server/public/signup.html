@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <title>Signup</title>
+  </head>
+
+  <body>
+    <h1>Signup Page</h1>
+    <form id="myForm">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" /><br />
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" /><br />
+      <label for="name">name:</label>
+      <input type="text" id="name" name="name" /><br />
+      <button type="submit" id="buttonSub">Signup</button>
+    </form>
+  </body>
+  <script>
+    document
+      .getElementById("myForm")
+      .addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        const name = document.getElementById("name").value;
+
+        // Replace 'https://api.example.com/login' with your actual API endpoint
+        const apiUrl = "http://localhost:3000/signup";
+
+        const data = {
+          username: username,
+          password: password,
+          name: name,
+        };
+
+        fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Success:", data);
+            // Handle the response data here
+            window.location.replace("dashboard");
+
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      });
+  </script>
+</html>
